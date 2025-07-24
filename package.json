@@ -21,7 +21,7 @@
   "homepage": "https://mrinimitableframework.com",
   "dependencies": {
     "@editorjs/editorjs": "^2.28.2",
-    "@mrinimitable/esbuild-plugin-postcss2": "git+https://github.com/mrinimitable/esbuild-plugin-postcss2.git#f7440894bea0b037dd8aaf2e237595dd93993924",
+    "@mrinimitable/esbuild-plugin-postcss2": "file:../esbuild-plugin-postcss2",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
