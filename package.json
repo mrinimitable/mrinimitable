@@ -54,7 +54,7 @@
     "mrinimitable-charts": "git+https://github.com/mrinimitable/charts.git#main",
     "mrinimitable-datatable": "file:/home/shivank/s/mrinimitable-datatable",
     "mrinimitable-gantt": "git+https://github.com/mrinimitable/gantt.git#main",
-    "mrinimitable-quill-image-resize": "git+https://github.com/mrinimitable/quill-image-resize.git#main",
+    "mrinimitable-quill-image-resize": "file:/home/shivank/s/quill-image-resize",
     "highlight.js": "^10.4.1",
     "html5-qrcode": "^2.3.8",
     "jquery": "3.7.0",
