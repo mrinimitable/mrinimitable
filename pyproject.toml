@@ -21,6 +21,7 @@ dependencies = [
     # do NOT add loose requirements on PyMySQL versions.
     "PyMySQL==1.1.1",
     "pypdf~=5.6.0",
+    "pypika~=0.48.8",
     "mysqlclient==2.2.7",
     "PyQRCode~=1.2.1",
     "PyYAML~=6.0.2",
@@ -37,6 +38,7 @@ dependencies = [
     "cryptography~=45.0.4",
     "cssutils~=2.11.1",
     "email-reply-parser~=0.5.12",
+    "gunicorn",
     "html5lib~=1.1",
     "ipython~=8.37.0",
     "ldap3~=2.9",
