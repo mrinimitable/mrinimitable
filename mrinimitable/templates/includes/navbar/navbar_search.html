@@ -1,0 +1,9 @@
+{% if navbar_search %}
+	<li>
+		<form action='/search'>
+		<input name='q' class='form-control navbar-search' type='text'
+			value='{{ mrinimitable.form_dict.q|e if mrinimitable.form_dict.q else ''}}'
+			{% if not mrinimitable.form_dict.q %}placeholder="{{ _("Search...") }}"{% endif %}>
+		</form>
+	</li>
+{% endif %}

@@ -1,0 +1,13 @@
+**/hooks.py,mrinimitable.gettext.extractors.navbar.extract
+**/doctype/*/*.json,mrinimitable.gettext.extractors.doctype.extract
+**/workspace/*/*.json,mrinimitable.gettext.extractors.workspace.extract
+**/onboarding_step/*/*.json,mrinimitable.gettext.extractors.onboarding_step.extract
+**/module_onboarding/*/*.json,mrinimitable.gettext.extractors.module_onboarding.extract
+**/report/*/*.json,mrinimitable.gettext.extractors.report.extract
+**.py,mrinimitable.gettext.extractors.python.extract
+**/templates/**.js,mrinimitable.gettext.extractors.html_template.extract
+**.js,mrinimitable.gettext.extractors.javascript.extract
+**.html,mrinimitable.gettext.extractors.html_template.extract
+**.vue,mrinimitable.gettext.extractors.html_template.extract
+**/custom/*.json,mrinimitable.gettext.extractors.customization.extract
+**/fixtures/custom_field.json,mrinimitable.gettext.extractors.custom_field.extract

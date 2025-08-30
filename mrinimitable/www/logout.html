@@ -1,0 +1,11 @@
+{% from "mrinimitable/templates/includes/avatar_macro.html" import avatar %}
+{% extends "templates/web.html" %}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_content %}
+<script>
+	window.onload = function () {
+		mrinimitable.logout()
+	}
+</script>
+{% endblock %}
