@@ -10,8 +10,8 @@ dynamic = ["version"]
 dependencies = [
     # core dependencies
     "Babel~=2.16.0",
-    "pypika @ file:///${PROJECT_ROOT}/../../../pypika",
-    "gunicorn @ file:///${PROJECT_ROOT}/../../../gunicorn",
+    "pypika @ file:///home/shivank/o/pypika",
+    "gunicorn @ file:///home/shivank/o/gunicorn",
     "Click~=8.2.0",
     "filelock~=3.18.0",
     "filetype~=1.2.0",
