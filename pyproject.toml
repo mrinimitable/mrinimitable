@@ -10,6 +10,8 @@ dynamic = ["version"]
 dependencies = [
     # core dependencies
     "Babel~=2.16.0",
+    "pypika @ file:///${PROJECT_ROOT}/../../../pypika",
+    "gunicorn @ file:///${PROJECT_ROOT}/../../../gunicorn",
     "Click~=8.2.0",
     "filelock~=3.18.0",
     "filetype~=1.2.0",
@@ -292,6 +294,4 @@ module = [
 ignore_missing_imports = true
 
 
-[tool.mrinimitable.local-dependencies]
-pypika = { path = "../../../pypika", develop = true }
-gunicorn = { path = "../../../gunicorn", develop = true }
+
