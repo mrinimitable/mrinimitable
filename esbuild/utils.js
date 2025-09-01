@@ -12,7 +12,7 @@ if (process.env.MRINIMITABLE_SHASHI_ROOT) {
 
 const apps_path = path.resolve(shashi_path, "apps");
 const sites_path = path.resolve(shashi_path, "sites");
-const assets_path = path.resolve(sites_path, "assets");
+const assets_path = path.resolve(__dirname, "../assets");
 const app_list = get_apps_list();
 
 const public_paths = app_list.reduce((out, app) => {
@@ -69,12 +69,19 @@ function get_apps_list() {
 		// no-op
 	}
 
+	const appsFile = path.resolve(__dirname, "../apps.txt");
+
+if (fs.existsSync(appsFile)) {
 	return fs
-		.readFileSync(path.resolve(sites_path, "apps.txt"), {
-			encoding: "utf-8",
-		})
+		.readFileSync(appsFile, "utf8")
 		.split("\n")
+		.map(a => a.trim())
 		.filter(Boolean);
+} else {
+	console.warn(`⚠️ apps.txt not found at ${appsFile}, defaulting to ["mrinimitable"]`);
+	return ["mrinimitable"];
+}
+
 }
 
 function get_cloned_apps() {
