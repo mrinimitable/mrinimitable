@@ -293,5 +293,5 @@ ignore_missing_imports = true
 
 
 [tool.mrinimitable.local-dependencies]
-pypika = { path = "../pypika", develop = true }
-gunicorn = { path = "../gunicorn", develop = true }
+pypika = { path = "../../../pypika", develop = true }
+gunicorn = { path = "../../../gunicorn", develop = true }
