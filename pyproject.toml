@@ -7,7 +7,6 @@ description = "Metadata driven, full-stack low code web framework"
 requires-python = ">=3.10,<3.14"
 readme = "README.md"
 dynamic = ["version"]
-
 dependencies = [
     # core dependencies
     "Babel~=2.16.0",
@@ -18,6 +17,8 @@ dependencies = [
     "Jinja2~=3.1.6",
     "Pillow~=11.3.0",
     "PyJWT~=2.10.1",
+    # We depend on internal attributes,
+    # do NOT add loose requirements on PyMySQL versions.
     "PyMySQL==1.1.1",
     "pypdf~=6.0.0",
     "mysqlclient==2.2.7",
@@ -62,6 +63,9 @@ dependencies = [
     "hiredis~=3.2.1",
     "requests-oauthlib~=2.0.0",
     "requests~=2.32.4",
+    # We depend on internal attributes of RQ.
+    # Do NOT add loose requirements on RQ versions.
+    # Audit the code changes w.r.t. background_jobs.py before updating.
     "rq==2.4.0",
     "rsa~=4.9",
     "semantic-version~=2.10.0",
@@ -77,6 +81,8 @@ dependencies = [
     "xlrd~=2.0.2",
     "zxcvbn~=4.5.0",
     "markdownify~=1.1.0",
+
+    # integration dependencies
     "google-api-python-client~=2.172.0",
     "google-auth-oauthlib~=1.2.2",
     "google-auth~=2.40.3",
@@ -85,7 +91,207 @@ dependencies = [
     "pycountry~=24.6.1",
 ]
 
-# 👇 Local development-only packages
+[project.urls]
+Homepage = "https://mrinimitableframework.com/"
+Repository = "https://github.com/mrinimitable/mrinimitable.git"
+"Bug Reports" = "https://github.com/mrinimitable/mrinimitable/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pyngrok~=6.0.0",
+    "watchdog~=3.0.0",
+    "responses==0.23.1",
+    # typechecking
+    "basedmypy",
+    "types-PyMySQL",
+    "types-PyYAML",
+    "types-Pygments",
+    "types-beautifulsoup4",
+    "types-bleach",
+    "types-cffi",
+    "types-colorama",
+    "types-croniter",
+    "types-decorator",
+    "types-ldap3",
+    "types-oauthlib",
+    "types-openpyxl",
+    "types-passlib",
+    "types-psutil",
+    "types-psycopg2",
+    "types-python-dateutil",
+    "types-pytz",
+    "types-requests",
+    "types-six",
+    "types-vobject",
+    "types-zxcvbn",
+    "pypika-stubs",  # contributed
+]
+test = [
+    "unittest-xml-reporting~=3.2.0",
+    "coverage~=7.10.0",
+    "Faker~=18.10.1",
+    "hypothesis~=6.77.0",
+    "freezegun~=1.5.1",
+]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.mrinimitable.testing.function_type_validation]
+max_module_depth = 0
+skip_namespaces = [
+    "mrinimitable.deprecation_dumpster",
+    "mrinimitable.utils.typing_validations",
+]
+
+[tool.shashi.dev-dependencies]
+coverage = "~=7.10.0"
+Faker = "~=18.10.1"
+pyngrok = "~=6.0.0"
+unittest-xml-reporting = "~=3.2.0"
+watchdog = "~=3.0.0"
+hypothesis = "~=6.77.0"
+responses = "==0.23.1"
+freezegun = "~=1.2.2"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+exclude = [
+    "**/doctype/*/boilerplate/*.py" # boilerplate are template strings, not valid python
+]
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "RUF",
+]
+ignore = [
+    "B017", # assertRaises(Exception) - should be more specific
+    "B018", # useless expression, not assigned to anything
+    "B023", # function doesn't bind loop variable - will have last iteration's value
+    "B904", # raise inside except without from
+    "E101", # indentation contains mixed spaces and tabs
+    "E402", # module level import not at top of file
+    "E501", # line too long
+    "E741", # ambiguous variable name
+    "F401", # "unused" imports
+    "F403", # can't detect undefined names from * import
+    "F405", # can't detect undefined names from * import
+    "F722", # syntax error in forward type annotation
+    "W191", # indentation contains tabs
+    "UP030", # Use implicit references for positional format fields (translations)
+    "UP031", # Use format specifiers instead of percent format
+    "UP032", # Use f-string instead of `format` call (translations)
+]
+typing-modules = ["mrinimitable.types.DF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+docstring-code-format = true
+
+[tool.frappix]
+# use identifier from https://search.nixos.org/packages
+nixpkgs-deps = [
+    "mariadb",
+    "restic",
+    "wkhtmltopdf-bin",
+    "which",
+    "gzip",
+    "bash",
+    "redis",
+    "nodejs_20",
+    "python312",
+]
+
+[tool.mypy]
+strict = false
+pretty = true
+incremental = true
+sqlite_cache = true
+files = [
+    # start small, with a lot of multiplication potential
+    "mrinimitable/types/__init__.py",
+    "mrinimitable/types/DF.py",
+    "mrinimitable/types/mrinimitabledict.py",
+    "mrinimitable/types/filter.py",
+]
+exclude = [
+    # permanent excludes
+    "^mrinimitable/patches",
+    '/test_.+\.py$',
+    "^mrinimitable/tests/ui_test_helpers.py",
+    "^mrinimitable/parallel_test_runner.py",
+    "^mrinimitable/deprecation_dumpster.py",
+]
+disable_error_code = [
+]
+
+[[tool.mypy.overrides]]
+module = "mrinimitable"
+# Too many for a start
+disable_error_code = [
+    "no-any-expr",
+    "no-untyped-def",
+    "no-untyped-call",
+    "no-untyped-usage",
+]
+
+# External libraries without types
+[[tool.mypy.overrides]]
+module = [
+    "bleach_allowlist",
+    "cssutils",
+    "cups",
+    "email_reply_parser",
+    "filetype",
+    "google",
+    "googleapiclient.discovery",
+    "googleapiclient.errors",
+    "google.oauth2",
+    "google.oauth2.credentials",
+    "markdown2",
+    "markdownify",
+    "num2words",
+    "pdfkit",
+    "premailer",
+    "pyngrok",
+    "pypika",
+    "pypika.dialects",
+    "pypika.functions",
+    "pypika.queries",
+    "pypika.terms",
+    "pypika.utils",
+    "pyqrcode",
+    "rauth",
+    "requests_oauthlib",
+    "RestrictedPython",
+    "RestrictedPython.Guards",
+    "RestrictedPython.transformer",
+    "semantic_version",
+    "sql_metadata",
+    "sqlparse",
+    "terminaltables",
+    "traceback_with_variables",
+    "weasyprint",
+    "whoosh.fields",
+    "whoosh.index",
+    "whoosh.qparser",
+    "whoosh.query",
+    "whoosh.writing",
+    "xlrd",
+    "xmlrunner",
+]
+ignore_missing_imports = true
+
+
 [tool.mrinimitable.local-dependencies]
 pypika = { path = "../pypika", develop = true }
 gunicorn = { path = "../gunicorn", develop = true }
