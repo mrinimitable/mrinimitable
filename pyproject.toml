@@ -21,7 +21,8 @@ dependencies = [
     # do NOT add loose requirements on PyMySQL versions.
     "PyMySQL==1.1.1",
     "pypdf~=6.0.0",
-    "PyPika @ git+https://github.com/mrinimitable/pypika@093984977ce157d35e048c51d9ff55a1f0f44570",
+     pypika = { path = "../pypika", develop = true }
+     gunicorn = { path = "../gunicorn", develop = true }
     "mysqlclient==2.2.7",
     "PyQRCode~=1.2.1",
     "PyYAML~=6.0.2",
@@ -39,7 +40,6 @@ dependencies = [
     "cryptography~=45.0.4",
     "cssutils~=2.11.1",
     "email-reply-parser~=0.5.12",
-    "gunicorn @ git+https://github.com/mrinimitable/gunicorn@bb554053bb87218120d76ab6676af7015680e8b6",
     "html5lib~=1.1",
     "ipython~=8.37.0",
     "ldap3~=2.9",
