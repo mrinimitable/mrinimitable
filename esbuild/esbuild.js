@@ -158,13 +158,13 @@ async function update_assets_obj(app, assets, assets_rtl) {
 	const app_path = path.join(apps_path, app, app);
 	const dist_path = path.join(app_path, "public", "dist");
 	const files = await glob("**/*.bundle.*.{js,css}", { cwd: dist_path });
-	const assets_dist = path.join("assets", app, "dist");
-	const prefix = path.join("/", assets_dist);
+	const assets_dir = path.join(assets_path, app, "dist");
+	const prefix = path.join("/", "assets", app, "dist");
 
 	// eg: "js/marketplace.bundle.6SCSPSGQ.js"
 	for (const file of files) {
 		const source_path = path.join(dist_path, file);
-		const dest_path = path.join(sites_path, assets_dist, file);
+		const dest_path = path.join(assets_dir, file);
 
 		// Copy asset file from app/public to sites/assets
 		if (!fs.existsSync(dest_path)) {
@@ -440,7 +440,7 @@ async function write_assets_json(metafile) {
 	let out = {};
 	for (let output in metafile.outputs) {
 		let info = metafile.outputs[output];
-		let asset_path = "/" + path.relative(sites_path, output);
+		let asset_path = "/" + path.relative(assets_path, output);
 		if (info.entryPoint) {
 			let key = path.basename(info.entryPoint);
 			if (key.endsWith(".css") && asset_path.includes("/css-rtl/")) {
